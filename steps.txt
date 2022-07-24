@@ -1,0 +1,21 @@
+npm install --save nodemon
+npm install --save bcrypt
+npm install --save cors
+npm install --save dotenv
+npm install --save express
+npm install --save multer
+npm install --save mysql
+npm install --save-dev @faker-js/faker
+npm install --save knex
+npm install --save bookshelf
+npm install --save bookshelf-modelbase
+npm install --save checkit
+npm install --save sharp
+npm install --save uuid
+
+
+
+knex migrate:latest
+knex seed:run
+
+
