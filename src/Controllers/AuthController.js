@@ -1,7 +1,8 @@
-require('dotenv').config();
 const Model = require('../Models/User');
 const Resource = require('../Resources/UserResource');
 const bcrypt = require('bcrypt');
+const NodeMailerWrapper = require("../Libs/NodeMailerWrapper");
+const updatePasswordAndSendEmail = require("../Events/updatePasswordAndSendEmail");
 module.exports={
     login: async (req, res) => {
         let row = await Model.findOne({email:req.body.email}, {require: false});
@@ -39,6 +40,9 @@ module.exports={
         if(!row){
             return res.status(403).send({message: 'There is no account with this email'});
         }
+        /*******Sending email********/
+        await updatePasswordAndSendEmail.run(row.toJSON());
+        /**********************/
         return res.status(200).send({message: 'New password has been sent to your email'});
     },
 }

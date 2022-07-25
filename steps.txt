@@ -12,7 +12,8 @@ npm install --save bookshelf-modelbase
 npm install --save checkit
 npm install --save sharp
 npm install --save uuid
-
+npm install --save nodemailer
+npm install --save --force nodemailer-express-handlebars
 
 
 knex migrate:latest

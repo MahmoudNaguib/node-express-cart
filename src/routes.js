@@ -4,7 +4,5 @@ module.exports = function (app) {
     app.use('/api/admin/posts', require('./Routes/Admin/PostsRoutes'));
     /***********Admin***********/
     app.use('/api/auth', require('./Routes/AuthRoutes'));
-
-
 }
 
