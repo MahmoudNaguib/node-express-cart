@@ -3,8 +3,8 @@ module.exports = (fieldName, isRequired, maxSize, imageSizes) => async (req, res
     let errors = {};
     if (req.files[fieldName] == undefined) {
         delete req.body[fieldName];
-        errors[fieldName] = `${fieldName} field is required`;
         if (isRequired) {
+            errors[fieldName] = `The ${fieldName} field is required`;
             return res.status(422).send({message: 'Validation errors', errors: errors});
         }
         next();

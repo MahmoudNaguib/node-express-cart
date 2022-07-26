@@ -5,7 +5,6 @@ module.exports = class Section extends BaseModel {
     }
     static createRules = {
         title: ['required'],
-        image:['required']
     };
     static editRules = {
         title: ['required'],

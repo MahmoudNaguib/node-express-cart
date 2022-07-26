@@ -3,7 +3,7 @@ const Resource = require('../../Resources/PostResource');
 
 module.exports={
     index: async (req, res) => {
-        let rows = await Model.fetchPage({withRelated: ['user','section'],page:(req.query.page) ? req.query.page : 1,pageSize: process.env.PAGE_LIMIT});
+        let rows = await Model.forge().fetchPage({withRelated: ['user','section'],page:(req.query.page) ? req.query.page : 1,pageSize: process.env.PAGE_LIMIT});
         return res.send(await new Resource().collection(rows));
     },
     show: async (req, res) => {
@@ -15,6 +15,7 @@ module.exports={
     },
     store: async (req, res) => {
         try {
+            req.body.user_id = req.user.id;
             let row = await Model.create(req.body);
             if (row) {
                 return res.status(201).send({message: 'Created successfully', data: new Resource().resource(row.toJSON())});
@@ -26,6 +27,7 @@ module.exports={
     },
     update: async (req, res) => {
         try {
+            req.body.user_id = req.user.id;
             let row = await Model.update(req.body, {id: req.params.id, require: false});
             if (row) {
                 return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
