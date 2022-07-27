@@ -7,6 +7,7 @@ const factory = {
     generate: () => {
         const name=faker.name.findName();
         let row={};
+        row.type='User'
         row.name=faker.name.findName();
         row.email=faker.internet.exampleEmail();
         row.mobile=faker.phone.phoneNumber();
@@ -16,7 +17,7 @@ const factory = {
         ///////// image field
         const Resize = require("../../Libs/Resize");
         const image = new Resize({large: '400x300', small: '200x150'});
-        let fileName =  image.save('public/samples_images/users/'+getRandomInteger(1,10)+'.png');
+        let fileName =  image.save('public/assets/imgs/samples/users/'+getRandomInteger(1,10)+'.png');
         row.image = fileName;
         //////////////
         row.is_confirmed=1;

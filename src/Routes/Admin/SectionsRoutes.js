@@ -6,12 +6,6 @@ const Model = require('../../Models/Section');
 const ValidateImageAndResize = require('../../Middlewares/ValidateImageAndResize');
 const Validate = require('../../Middlewares/Validate');
 
-/******Allow attachment*******/
-const multer = require('multer');
-const upload = multer();
-router.use(upload.fields([{name:'image',maxCount: 1}]));
-/******Allow attachment*******/
-
 
 router.get('/pairs', Controller.pairs);
 router.get('/', Controller.index);

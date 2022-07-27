@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
     ///////// image field
     const Resize = require("../../Libs/Resize");
     const image = new Resize({large: '400x300', small: '200x150'});
-    let fileName =  image.save('public/samples_images/users/'+getRandomInteger(1,10)+'.png');
+    let fileName =  image.save('public/assets/imgs/samples/users/'+getRandomInteger(1,10)+'.png');
     /////////
 
     await knex('users').insert([
@@ -24,7 +24,7 @@ exports.seed = async function (knex) {
             image:fileName
         },
         {
-            type: 'Guest',
+            type: 'User',
             name: 'user1',
             email: 'user1@demo.com',
             mobile: '+2012'+getRandomInteger(10000000,99999999),
@@ -35,7 +35,7 @@ exports.seed = async function (knex) {
             image:fileName
         },
         {
-            type: 'Guest',
+            type: 'User',
             name: 'user2',
             email: 'user2@demo.com',
             mobile: '+2012'+getRandomInteger(10000000,99999999),
@@ -46,7 +46,7 @@ exports.seed = async function (knex) {
             image:fileName
         },
         {
-            type: 'Guest',
+            type: 'User',
             name: 'user3',
             email: 'user3@demo.com',
             mobile: '+2012'+getRandomInteger(10000000,99999999),

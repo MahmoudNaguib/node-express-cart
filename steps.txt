@@ -14,7 +14,7 @@ npm install --save sharp
 npm install --save uuid
 npm install --save nodemailer
 npm install --save --force nodemailer-express-handlebars
-
+npm install --save --force express-handlebars
 
 knex migrate:latest
 knex seed:run

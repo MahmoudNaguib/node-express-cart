@@ -1,6 +1,12 @@
 const Resize = require("../Libs/Resize");
 module.exports = (fieldName, isRequired, maxSize, imageSizes) => async (req, res, next) => {
     let errors = {};
+    if (isRequired) {
+        if(!req.files){
+            errors[fieldName] = `The ${fieldName} field is required`;
+            return res.status(422).send({message: 'Validation errors', errors: errors});
+        }
+    }
     if (req.files[fieldName] == undefined) {
         delete req.body[fieldName];
         if (isRequired) {

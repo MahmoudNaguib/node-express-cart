@@ -1,9 +1,9 @@
 const {getDate} = require('../Helpers/Helpers');
 const BaseResource=require('./BaseResource');
 module.exports=class UserResource extends BaseResource{
-    resource(row) {
+    resource(row,token='') {
         if(row){
-            return {
+            let data={
                 type: 'users',
                 id: parseInt(row.id.toString()),
                 attributes: {
@@ -12,11 +12,14 @@ module.exports=class UserResource extends BaseResource{
                     email: row.email,
                     mobile:row.mobile,
                     image:row.image,
-                    token: row.token,
                     created_at: getDate(row.created_at),
                     updated_at: getDate(row.updated_at),
                 }
             };
+            if(token!=''){
+                data.token=token;
+            }
+            return data;
         }
     }
 }

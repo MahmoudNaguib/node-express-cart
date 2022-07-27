@@ -1,0 +1,16 @@
+<h2 style="text-align: center;">{{title}}</h2>
+
+<h3>Hello {{row.name}} </h3>
+<p>
+    Welcome to application_name
+    <p>
+        <b>Email</b>: {{row.email}}
+    </p>
+    <p>
+        {{#unless row.is_confirmed}}
+            <a href="{{baseUrl}}/auth/confirm/{{row.confirm_token}}">
+                Confirm your account
+            </a>
+        {{/unless}}
+    </p>
+</p>

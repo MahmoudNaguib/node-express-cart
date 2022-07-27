@@ -2,6 +2,15 @@ require('dotenv').config();
 const nodeMailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path');
+
+const handlebarOptions = {
+    viewEngine: {
+        layoutsDir: path.resolve('./src/views/emails/layouts/'),
+        defaultLayout: 'main.hbs',
+    },
+    viewPath: path.resolve('./src/views/emails/'),
+    extName:'.hbs'
+};
 const transportOptions = {
     host: process.env.MAIL_HOST,
     port: process.env.MAIL_PORT,
@@ -10,14 +19,6 @@ const transportOptions = {
         pass: process.env.MAIL_PASSWORD
     }
 };
-const handlebarOptions = {
-    viewEngine: {
-        layoutsDir: path.resolve('./src/views/emails/layouts/'),
-        defaultLayout: 'main.html',
-    },
-    viewPath: path.resolve('./src/views/emails/'),
-    extName:'.html'
-};
 const transporter = nodeMailer.createTransport(transportOptions);
 transporter.use('compile', hbs(handlebarOptions));
 
@@ -25,7 +26,12 @@ class NodeMailerWrapper {
     constructor(to, subject, template, data) {
         this.to = to;
         this.subject = process.env.APP_NAME+" - "+subject;
-        this.template = template;
+        this.template = template
+        ///// append appName
+        data.appName=process.env.APP_NAME;
+        data.baseUrl=process.env.APP_URL;
+        data.year=new Date().getFullYear();
+        /////////
         this.context = data;
     }
     send() {
