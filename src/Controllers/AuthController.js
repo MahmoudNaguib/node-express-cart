@@ -27,7 +27,7 @@ module.exports = {
                 + bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT);
             req.body.token=bcrypt.hashSync(req.body.email, process.env.HASH_SALT)
                 + bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT);
-            req.body.is_confirmed=0;
+            req.body.is_confirmed=process.env.USER_IS_CONFIRMED;
             /**********/
             let row = await Model.create(req.body);
             if (row) {

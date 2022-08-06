@@ -1,4 +1,5 @@
 const BaseModel = require('./BaseModel');
+const knex = require('../Database/knex');
 const UserCreated = require("../Events/Users/UserCreated");
 const ForgotPassword = require("../Events/Users/ForgotPassword");
 module.exports = class User extends BaseModel {
@@ -17,7 +18,7 @@ module.exports = class User extends BaseModel {
     };
     static registerRules = {
         name: ['required', 'minLength:4'],
-        email: ['required', 'email'],
+        email: ['required', 'email','exists:users:email'],
         mobile: ['required', function (val) {
             if (!val.match('^\\+?[0-9]{10,14}$'))
                 throw new Error('Invalid mobile format');
@@ -26,16 +27,16 @@ module.exports = class User extends BaseModel {
     };
     static editRules = {
         name: ['required', 'minLength:4'],
-        email: ['required', 'email'],
+        email: ['required', 'email','unique:users:email'],
         mobile: ['required', function (val) {
             if (!val.match('^\\+?[0-9]{10,14}$'))
                 throw new Error('Invalid mobile format');
         }],
     };
     static changePasswordRules = {
-        old_password: ['required', 'minLength:8'],
-        password: ['required', 'minLength:8'],
-        password_confirmation: ['required', 'minLength:8'],
+        old_password: ['required', 'minLength:8','matchPassword'],
+        password: ['required', 'minLength:8','same:password_confirmation'],
+        password_confirmation: ['required', 'same:password'],
     };
     static forgotRules = {
         email: ['required', 'email'],

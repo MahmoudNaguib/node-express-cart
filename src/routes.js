@@ -1,8 +1,8 @@
 module.exports = function (app) {
     /***********Admin***********/
     app.use('/api/admin/*',[require('./Middlewares/IsAuth'),require('./Middlewares/IsAdmin')]);
-    app.use('/api/admin/sections', require('./Routes/Admin/SectionsRoutes'));
-    app.use('/api/admin/posts', require('./Routes/Admin/PostsRoutes'));
+    app.use('/api/admin/sections', require('./Routes/Admin/AdminSectionsRoutes'));
+    app.use('/api/admin/posts', require('./Routes/Admin/AdminPostsRoutes'));
     /*****************************/
 
     /***********Front***********/
