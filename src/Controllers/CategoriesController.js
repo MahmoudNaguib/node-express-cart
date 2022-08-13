@@ -1,5 +1,5 @@
-const Model =  require('../Models/Section');
-const Resource = require('../Resources/SectionResource');
+const Model =  require('../Models/Category');
+const Resource = require('../Resources/CategoryResource');
 module.exports = {
     pairs: async (req, res) => {
         let rows = await Model.findAll({is_active:1});

@@ -3,6 +3,8 @@ module.exports = function (app) {
     app.use('/api/admin/*',[require('./Middlewares/IsAuth'),require('./Middlewares/IsAdmin')]);
     app.use('/api/admin/sections', require('./Routes/Admin/AdminSectionsRoutes'));
     app.use('/api/admin/posts', require('./Routes/Admin/AdminPostsRoutes'));
+    app.use('/api/admin/categories', require('./Routes/Admin/AdminCategoriesRoutes'));
+    app.use('/api/admin/products', require('./Routes/Admin/AdminProductsRoutes'));
     /*****************************/
 
     /***********Front***********/
@@ -10,6 +12,8 @@ module.exports = function (app) {
     app.use('/api/auth', require('./Routes/AuthRoutes'));
     app.use('/api/sections', require('./Routes/SectionsRoutes'));
     app.use('/api/posts', require('./Routes/PostsRoutes'));
+    app.use('/api/categories', require('./Routes/CategoriesRoutes'));
+    app.use('/api/products', require('./Routes/ProductsRoutes'));
     /*****************************/
 
     /***********Logged***********/

@@ -6,10 +6,12 @@ exports.seed = async function (knex) {
     let rows = [];
     let posts=await knex('posts');
     let users=await knex('users').where({type:'User'});
-    for(i=0; i<users.length; i++){
-        for(j=0; j<posts.length; j++){
-            let row=factory.generate({post_id:posts[j].id,user_id:users[i].id});
-            rows.push(row);
+    for(let i=0; i<users.length; i++){
+        for(let j=0; j<posts.length; j++){
+            for(let k=0; k<3; k++){
+                let row=factory.generate({post_id:posts[j].id,user_id:users[i].id});
+                rows.push(row);
+            }
         }
     }
     await knex('comments').insert(rows);
