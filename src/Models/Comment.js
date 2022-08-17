@@ -5,7 +5,7 @@ module.exports = class Comment extends BaseModel {
     }
 
     static createRules = {
-        post_id: ['required'],
+        post_id: ['required','integer'],
         content: ['required'],
     };
 

@@ -1,23 +1,22 @@
 const {getDate} = require('../Helpers/Helpers');
 const BaseResource=require('./BaseResource');
-
-const TinyPostResource=require('./TinyResources/TinyPostResource');
+const TinyProductResource=require('./TinyResources/TinyProductResource');
 const TinyUserResource=require('./TinyResources/TinyUserResource');
-module.exports=class CommentResource extends BaseResource{
+module.exports=class CartResource extends BaseResource{
     resource(row) {
         if(row){
             return {
-                type: 'comments',
+                type: 'cart',
                 id: parseInt(row.id.toString()),
                 attributes: {
-                    post_id:row.post_id,
                     user_id:row.user_id,
-                    content:row.content,
+                    product_id:row.product_id,
+                    quantity:row.quantity,
                     created_at: getDate(row.created_at),
                     updated_at: getDate(row.updated_at),
                 },
                 relationships: {
-                    post:new TinyPostResource().resource(row.post),
+                    product:new TinyProductResource().resource(row.product),
                     user:new TinyUserResource().resource(row.user),
                 },
             };

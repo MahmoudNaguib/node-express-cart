@@ -18,6 +18,7 @@ module.exports = function (app) {
 
     /***********Logged***********/
     app.use('/api/profile',[require('./Middlewares/IsAuth')],require('./Routes/Logged/ProfileRoutes'));
+    app.use('/api/cart',[require('./Middlewares/IsAuth')],require('./Routes/Logged/CartRoutes'));
     /*****************************/
 
 }
