@@ -4,7 +4,7 @@ exports.up = function (knex) {
         table.bigint('user_id').nullable().index();
         table.string('title').nullable();
         table.string('image').nullable();
-        table.tinyint('is_active').index().defaultTo(1);
+        table.tinyint('is_active',1).index().defaultTo(1);
         table.timestamps(true,true);
     });
 };

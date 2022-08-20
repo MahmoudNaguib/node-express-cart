@@ -5,14 +5,12 @@ module.exports=class Post extends BaseModel{
      }
      static createRules = {
           category_id: ['required'],
-          user_id: ['required'],
           title: ['required'],
           content: ['required'],
           price:['required','numeric']
      };
      static editRules = {
           category_id: ['required'],
-          user_id: ['required'],
           title: ['required'],
           content: ['required'],
           price:['required','numeric']

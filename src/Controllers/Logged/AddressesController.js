@@ -1,10 +1,15 @@
-const Model = require('../../Models/Cart');
-const Resource = require('../../Resources/CartResource');
-const ProductModel = require("../../Models/Product");
+const Model = require('../../Models/Address');
+const Resource = require('../../Resources/AddressResource');
+const CountryModel = require("../../Models/Country");
 module.exports = {
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({user_id: req.user.id});
+        return res.send(new Resource().pluck(rows, 'id', 'title'));
+    },
+
     index: async (req, res) => {
         let rows = await Model.forge().where({user_id: req.user.id}).fetchPage({
-            withRelated: ['user', 'product'],
+            withRelated: ['user', 'country'],
             page: (req.query.page) ? req.query.page : 1,
             pageSize: process.env.PAGE_LIMIT
         });
@@ -12,7 +17,7 @@ module.exports = {
     },
 
     show: async (req, res) => {
-        let row = await Model.findOne({id: req.params.id}, {withRelated: ['user', 'product'], require: false});
+        let row = await Model.findOne({id: req.params.id}, {withRelated: ['user', 'country'], require: false});
         if (!row) {
             return res.status(404).send({message: 'Record not found'});
         }
@@ -20,10 +25,10 @@ module.exports = {
     },
 
     store: async (req, res) => {
-        /***********Check product is existed ************/
-        let row = await ProductModel.findOne({id: req.body.product_id}, {require: false});
+        /***********Check country is existed ************/
+        let row = await CountryModel.findOne({id: req.body.country_id}, {require: false});
         if (!row) {
-            return res.status(404).send({message: 'Product not found'});
+            return res.status(404).send({message: 'Country not found'});
         }
         /*****************************************/
         try {
@@ -36,12 +41,11 @@ module.exports = {
             return res.send(err);
         }
     },
-
     update: async (req, res) => {
-        /***********Check product is existed ************/
-        let row = await ProductModel.findOne({id: req.body.product_id}, {require: false});
+        /***********Check country is existed ************/
+        let row = await CountryModel.findOne({id: req.body.country_id}, {require: false});
         if (!row) {
-            return res.status(404).send({message: 'Product not found'});
+            return res.status(404).send({message: 'Country not found'});
         }
         /*****************************************/
         try {
@@ -54,7 +58,6 @@ module.exports = {
             return res.send(err);
         }
     },
-
     delete: async (req, res) => {
         try {
             let row = await Model.destroy({id: req.params.id, require: false});

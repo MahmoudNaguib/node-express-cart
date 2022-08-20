@@ -1,11 +1,12 @@
 const {faker} = require('@faker-js/faker');
 const {getRandomInteger} = require('../../Helpers/Helpers');
 const Resize = require("../../Libs/Resize");
-
+const knex = require('../../Database/knex');
 const factory = {
-    generate: (data={}) => {
+    generate: async (data={}) => {
+        let section = await knex('sections').orderByRaw('RAND ()').first();
         let row = {};
-        row.section_id = (data.section_id!=undefined)?data.section_id:1;
+        row.section_id = (data.section_id!=undefined)?data.section_id:section.id;
         row.user_id = (data.user_id!=undefined)?data.user_id:1;
         row.title = faker.lorem.sentence(getRandomInteger(5, 20));
         row.content = faker.lorem.paragraphs(getRandomInteger(2, 5));

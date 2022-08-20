@@ -1,4 +1,4 @@
-const factory = require('../Factories/product');
+const factory = require('../Factories/Product');
 exports.seed = async function (knex) {
     // Deletes ALL existing entries
     await knex('products').del();
@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     for(let i=0; i<users.length; i++){
         for(let j=0; j<categories.length; j++){
             for(let k=0; k<20; k++){
-                let row=factory.generate({category_id:categories[j].id,user_id:users[i].id});
+                let row=await factory.generate({category_id:categories[j].id,user_id:users[i].id});
                 rows.push(row);
             }
         }

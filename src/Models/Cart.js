@@ -9,6 +9,11 @@ module.exports = class Cart extends BaseModel {
         quantity:['required','integer']
     };
 
+    static editRules = {
+        product_id: ['required','integer'],
+        quantity:['required','integer']
+    };
+
     user() {
         return this.belongsTo(require('./User'))
     }

@@ -1,4 +1,4 @@
-const factory=require('../Factories/category');
+const factory=require('../Factories/Category');
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('categories').del();

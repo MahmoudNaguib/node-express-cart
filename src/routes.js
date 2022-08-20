@@ -9,6 +9,7 @@ module.exports = function (app) {
 
     /***********Front***********/
     app.use('/auth', require('./Routes/ConfirmRoutes'));
+    app.use('/api/countries', require('./Routes/CountriesRoutes'));
     app.use('/api/auth', require('./Routes/AuthRoutes'));
     app.use('/api/sections', require('./Routes/SectionsRoutes'));
     app.use('/api/posts', require('./Routes/PostsRoutes'));
@@ -19,6 +20,8 @@ module.exports = function (app) {
     /***********Logged***********/
     app.use('/api/profile',[require('./Middlewares/IsAuth')],require('./Routes/Logged/ProfileRoutes'));
     app.use('/api/cart',[require('./Middlewares/IsAuth')],require('./Routes/Logged/CartRoutes'));
+    app.use('/api/addresses',[require('./Middlewares/IsAuth')],require('./Routes/Logged/AddressesRoutes'));
+    app.use('/api/orders',[require('./Middlewares/IsAuth')],require('./Routes/Logged/OrdersRoutes'));
     /*****************************/
 
 }

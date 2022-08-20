@@ -8,10 +8,10 @@ exports.up = function (knex) {
         table.string('password').nullable();
         table.string('image').nullable();
         table.string('token').nullable().index();
-        table.tinyint('is_confirmed').index().defaultTo(process.env.USER_IS_CONFIRMED);
+        table.tinyint('is_confirmed',1).index().defaultTo(process.env.USER_IS_CONFIRMED);
         table.string('confirm_token').nullable().index();
         table.timestamp('last_logged_in').nullable();
-        table.tinyint('is_active').defaultTo(1).index();
+        table.tinyint('is_active',1).defaultTo(1).index();
         table.timestamps(true,true);
     });
 };

@@ -6,13 +6,11 @@ module.exports = class Post extends BaseModel {
 
     static createRules = {
         section_id: ['required'],
-        user_id: ['required'],
         title: ['required'],
         content: ['required'],
     };
     static editRules = {
         section_id: ['required'],
-        user_id: ['required'],
         title: ['required'],
         content: ['required'],
     };

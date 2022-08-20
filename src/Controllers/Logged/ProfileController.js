@@ -9,6 +9,7 @@ module.exports={
         }
         return res.send({data: new Resource().resource(row.toJSON(),row.toJSON().token)});
     },
+
     edit: async (req, res) => {
         try {
             /****** Update token ***********/
@@ -22,6 +23,7 @@ module.exports={
             return res.send(err);
         }
     },
+
     changePassword: async (req, res) => {
         try {
             /****** Update token ***********/
@@ -40,6 +42,7 @@ module.exports={
             return res.send(err);
         }
     },
+
     changeImage: async (req, res) => {
         try {
             let row = await Model.update({image:req.body.image}, {id: req.user.id, require: false});
