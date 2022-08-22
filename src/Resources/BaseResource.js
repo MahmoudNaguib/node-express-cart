@@ -30,6 +30,16 @@ class BaseResource {
         return output;
     }
 
+    pluckValues(rows,value) {
+        let output = {};
+        output.data = [];
+        let records = rows.toJSON();
+        for (let i = 0; i < records.length; i++) {
+            output.data.push(records[i][value])
+        }
+        return output;
+    }
+
     paginate(rows) {
         let output = {};
         output.data = [];

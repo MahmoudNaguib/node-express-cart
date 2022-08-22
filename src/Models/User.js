@@ -20,7 +20,7 @@ module.exports = class User extends BaseModel {
         name: ['required', 'minLength:4'],
         email: ['required', 'email','exists:users:email'],
         mobile: ['required', function (val) {
-            if (!val.match('^\\+?[0-9]{10,14}$'))
+            if (!val.match('^\\+?[0-9 -]{10,15}$'))
                 throw new Error('Invalid mobile format');
         }],
         password: ['required', 'minLength:8'],
@@ -29,7 +29,7 @@ module.exports = class User extends BaseModel {
         name: ['required', 'minLength:4'],
         email: ['required', 'email','unique:users:email'],
         mobile: ['required', function (val) {
-            if (!val.match('^\\+?[0-9]{10,14}$'))
+            if (!val.match('^\\+?[0-9 -]{10,15}$'))
                 throw new Error('Invalid mobile format');
         }],
     };

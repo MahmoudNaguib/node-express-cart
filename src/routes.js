@@ -20,6 +20,7 @@ module.exports = function (app) {
     /***********Logged***********/
     app.use('/api/profile',[require('./Middlewares/IsAuth')],require('./Routes/Logged/ProfileRoutes'));
     app.use('/api/cart',[require('./Middlewares/IsAuth')],require('./Routes/Logged/CartRoutes'));
+    app.use('/api/favorites',[require('./Middlewares/IsAuth')],require('./Routes/Logged/FavoritesRoutes'));
     app.use('/api/addresses',[require('./Middlewares/IsAuth')],require('./Routes/Logged/AddressesRoutes'));
     app.use('/api/orders',[require('./Middlewares/IsAuth')],require('./Routes/Logged/OrdersRoutes'));
     /*****************************/

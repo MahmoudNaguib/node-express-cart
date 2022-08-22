@@ -1,5 +1,4 @@
 const knex = require('../Database/knex');
-const factory = require('../Database/Factories/Cart');
 const {getRandomInteger} = require('../Helpers/Helpers');
 const shopping = {
     createOrder: async (user_id, cartItems, orderInfo) => {
@@ -49,7 +48,23 @@ const shopping = {
         let rows = [];
         let products = await knex('products').orderByRaw('RAND ()').limit(getRandomInteger(1, 3));
         for (let j = 0; j < products.length; j++) {
-            let row = await factory.generate({product_id: products[j].id, user_id: user_id});
+            let row={
+                user_id: user_id,
+                product_id: products[j].id,
+                quantity:getRandomInteger(1, 5)
+            }
+            rows.push(row);
+        }
+        return rows;
+    },
+    createFavorites: async (user_id) => {
+        let rows = [];
+        let products = await knex('products').orderByRaw('RAND ()').limit(getRandomInteger(1, 3));
+        for (let j = 0; j < products.length; j++) {
+            let row={
+                user_id: user_id,
+                product_id: products[j].id,
+            }
             rows.push(row);
         }
         return rows;
