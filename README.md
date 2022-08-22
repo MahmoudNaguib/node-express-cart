@@ -1,5 +1,5 @@
 ## Node-Express-Cart
-Shopping cart Node using express, knex, bookshelf
+Shopping cart Using Mysql, Node using express, knex, bookshelf
 
 
 ## Installation
