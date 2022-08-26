@@ -1,7 +1,8 @@
 const knex = require('../Database/knex');
 const {getRandomInteger} = require('../Helpers/Helpers');
+
 const shopping = {
-    createOrder: async (user_id, cartItems, orderInfo) => {
+    createOrder: async (user_id, cartItems, orderInfo, orderStatus=null) => {
         let row = {};
         let total = 0;
         let address;
@@ -39,11 +40,12 @@ const shopping = {
             row.contact_name = orderInfo.contact_name;
             row.contact_mobile = orderInfo.contact_name;
             row.total = total;
-            row.status = 'Pending';
+            row.status = (orderStatus)?orderStatus:'Pending';
             row.products = JSON.stringify(productsList);
         }
         return row;
     },
+
     createCart: async (user_id) => {
         let rows = [];
         let products = await knex('products').orderByRaw('RAND ()').limit(getRandomInteger(1, 3));
@@ -57,6 +59,7 @@ const shopping = {
         }
         return rows;
     },
+
     createFavorites: async (user_id) => {
         let rows = [];
         let products = await knex('products').orderByRaw('RAND ()').limit(getRandomInteger(1, 3));
@@ -69,5 +72,11 @@ const shopping = {
         }
         return rows;
     },
+
+    getOrderStatuses:()=>{
+        return [
+            'Pending','Confirmed','Cancelled','In-Progress','In-Shipment','Delivered','Returned'
+        ];
+    }
 }
 module.exports = shopping;

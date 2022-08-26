@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
     let rows = [];
     let users = await knex('users');
     for (let i = 0; i < users.length; i++) {
-        for(let j=0; j<getRandomInteger(1,5);j++){
+        for(let j=0; j<getRandomInteger(5,10);j++){
             let row = await factory.generate({user_id: users[i].id});
             rows.push(row);
         }

@@ -3,11 +3,14 @@ const Resource = require('../../Resources/CartResource');
 const ProductModel = require("../../Models/Product");
 module.exports = {
     index: async (req, res) => {
-        let rows = await Model.forge().where({user_id: req.user.id}).fetchPage({
-            withRelated: ['user', 'product'],
-            page: (req.query.page) ? req.query.page : 1,
-            pageSize: process.env.PAGE_LIMIT
-        });
+        let rows = await Model.forge()
+            .where({user_id: req.user.id})
+            .orderBy('id', 'DESC')
+            .fetchPage({
+                withRelated: ['user', 'product'],
+                page: (req.query.page) ? req.query.page : 1,
+                pageSize: process.env.PAGE_LIMIT
+            });
         return res.send(await new Resource().collection(rows));
     },
 

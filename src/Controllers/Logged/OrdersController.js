@@ -5,16 +5,20 @@ const AddressModel = require("../../Models/Address");
 const {createOrder} = require("../../Helpers/Shopping");
 module.exports = {
     index: async (req, res) => {
-        let rows = await Model.forge().where({user_id: req.user.id}).fetchPage({
-            withRelated: ['user', 'address'],
-            page: (req.query.page) ? req.query.page : 1,
-            pageSize: process.env.PAGE_LIMIT
-        });
+        let rows = await Model.forge()
+            .filter(req.query)
+            .where({user_id: req.user.id})
+            .orderBy('id', 'DESC')
+            .fetchPage({
+                withRelated: ['user', 'address'],
+                page: (req.query.page) ? req.query.page : 1,
+                pageSize: process.env.PAGE_LIMIT
+            });
         return res.send(await new Resource().collection(rows));
     },
 
     show: async (req, res) => {
-        let row = await Model.findOne({id: req.params.id}, {withRelated: ['user', 'address'], require: false});
+        let row = await Model.findOne({id: req.params.id,user_id: req.user.id}, {withRelated: ['user', 'address'], require: false});
         if (!row) {
             return res.status(404).send({message: 'Record not found'});
         }
@@ -34,12 +38,12 @@ module.exports = {
             return res.status(400).send({message: 'There is no items in the cart'});
         }
         /***********************/
-        let orderData=await createOrder(req.user.id,cart.toJSON(),{
-            address:address.toJSON(),
-            contact_name:req.body.contact_name,
-            contact_mobile:req.body.contact_mobile
+        let orderData = await createOrder(req.user.id, cart.toJSON(), {
+            address: address.toJSON(),
+            contact_name: req.body.contact_name,
+            contact_mobile: req.body.contact_mobile
         });
-        if(!orderData){
+        if (!orderData) {
             return res.status(400).send({message: 'Failed to process your request'});
         }
         try {

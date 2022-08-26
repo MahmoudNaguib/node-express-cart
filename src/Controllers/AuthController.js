@@ -19,6 +19,7 @@ module.exports = {
         }
         return res.send({data: new Resource().resource(row.toJSON(), row.toJSON().token)})
     },
+
     register: async (req, res) => {
         try {
             /******hash password and set token****/
@@ -37,6 +38,7 @@ module.exports = {
             return res.send(err);
         }
     },
+
     forgot: async (req, res) => {
         let row = await Model.findOne({email: req.body.email}, {require: false});
         if (!row) {

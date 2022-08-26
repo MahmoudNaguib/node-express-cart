@@ -4,6 +4,10 @@ module.exports = class Address extends BaseModel {
         return 'addresses';
     }
 
+    own(req) {
+        return this.where({user_id: req.user.id});
+    }
+
     static createRules = {
         title: ['required'],
         country_id: ['required', 'integer'],

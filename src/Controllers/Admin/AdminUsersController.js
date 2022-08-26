@@ -1,16 +1,12 @@
-const Model =  require('../Models/Category');
-const Resource = require('../Resources/CategoryResource');
+const Model = require('../../Models/User');
+const Resource = require('../../Resources/UserResource');
 module.exports = {
-    pairs: async (req, res) => {
-        let rows = await Model.findAll({is_active:1});
-        return res.send(new Resource().pluck(rows, 'id', 'title'));
-    },
-
     index: async (req, res) => {
         let rows = await Model.forge()
-            .where({is_active:1})
+            .filter(req.query)
+            .where({type: 'User'})
+            .orderBy('id', 'DESC')
             .fetchPage({
-                withRelated: ['user'],
                 page:(req.query.page) ? req.query.page : 1,
                 pageSize: process.env.PAGE_LIMIT
             });
@@ -18,7 +14,7 @@ module.exports = {
     },
 
     show: async (req, res) => {
-        let row = await Model.findOne({id: req.params.id,is_active:1}, {withRelated: ['user'],require: false});
+        let row = await Model.findOne({id: req.params.id}, {require: false});
         if (!row) {
             return res.status(404).send({message: 'Record not found'});
         }

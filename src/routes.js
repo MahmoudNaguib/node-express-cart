@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.use('/api/admin/posts', require('./Routes/Admin/AdminPostsRoutes'));
     app.use('/api/admin/categories', require('./Routes/Admin/AdminCategoriesRoutes'));
     app.use('/api/admin/products', require('./Routes/Admin/AdminProductsRoutes'));
+    app.use('/api/admin/orders', require('./Routes/Admin/AdminOrdersRoutes'));
     /*****************************/
 
     /***********Front***********/

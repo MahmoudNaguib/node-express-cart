@@ -3,9 +3,18 @@ const Resource = require('../Resources/ProductResource');
 
 module.exports={
     index: async (req, res) => {
-        let rows = await Model.forge().where({is_active:1}).fetchPage({withRelated: ['user','category'],page:(req.query.page) ? req.query.page : 1,pageSize: process.env.PAGE_LIMIT});
+        let rows = await Model.forge()
+            .filter(req.query)
+            .where({is_active:1})
+            .orderBy('id', 'DESC')
+            .fetchPage({
+                withRelated: ['user','category'],
+                page:(req.query.page) ? req.query.page : 1,
+                pageSize: process.env.PAGE_LIMIT
+            });
         return res.send(await new Resource().collection(rows));
     },
+
     show: async (req, res) => {
         let row = await Model.findOne({id: req.params.id,is_active:1}, {withRelated: ['user','category'],require: false});
         if (!row) {

@@ -8,13 +8,16 @@ const CommentResource = require('../../Resources/CommentResource');
 
 module.exports = {
     index: async (req, res) => {
-        let rows = await Model.forge().fetchPage({
-            withRelated: ['user', 'section'],
-            page: (req.query.page) ? req.query.page : 1,
-            pageSize: process.env.PAGE_LIMIT
-        });
+        let rows = await Model.forge()
+            .filter(req.query)
+            .fetchPage({
+                withRelated: ['user', 'section'],
+                page: (req.query.page) ? req.query.page : 1,
+                pageSize: process.env.PAGE_LIMIT
+            });
         return res.send(await new Resource().collection(rows));
     },
+
     show: async (req, res) => {
         let row = await Model.findOne({id: req.params.id}, {withRelated: ['user', 'section'], require: false});
         if (!row) {
@@ -22,6 +25,7 @@ module.exports = {
         }
         return res.send({data: new Resource().resource(row.toJSON())});
     },
+
     store: async (req, res) => {
         try {
             req.body.user_id = req.user.id;
@@ -33,6 +37,7 @@ module.exports = {
             return res.send(err);
         }
     },
+
     update: async (req, res) => {
         try {
             req.body.user_id = req.user.id;
@@ -44,6 +49,7 @@ module.exports = {
             return res.send(err);
         }
     },
+
     delete: async (req, res) => {
         try {
             let row = await Model.destroy({id: req.params.id, require: false});
@@ -54,6 +60,7 @@ module.exports = {
             return res.send(err);
         }
     },
+
     comments: async (req, res) => {
         /***********Check post is exist************/
         let row = await Model.findOne({id: req.params.id}, {require: false});
@@ -61,7 +68,7 @@ module.exports = {
             return res.status(404).send({message: 'Post not found'});
         }
         /*****************************************/
-        let rows = await CommentModel.forge().where({post_id:req.params.id}).fetchPage({
+        let rows = await CommentModel.forge().where({post_id: req.params.id}).fetchPage({
             withRelated: ['user', 'post'],
             page: (req.query.page) ? req.query.page : 1,
             pageSize: process.env.PAGE_LIMIT

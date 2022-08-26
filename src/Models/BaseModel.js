@@ -5,5 +5,6 @@ class BaseModel extends Model {
     get requireFetch(){
         return false;
     }
+
 }
 module.exports=BaseModel;
