@@ -64,13 +64,12 @@ module.exports = {
     },
 
     delete: async (req, res) => {
-        try {
-            let row = await Model.destroy({id: req.params.id, require: false});
-            if (row) {
-                return res.status(200).send({message: 'Deleted successfully'});
-            }
-        } catch (err) {
-            return res.send(err);
+        let row = await Model.findOne({id: req.params.id,user_id: req.user.id}, {require: false});
+        if (!row) {
+            return res.status(404).send({message: 'Record not found'});
+        }
+        if(row.destroy()){
+            return res.status(200).send({message: 'Deleted successfully'});
         }
     },
 }

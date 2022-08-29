@@ -1,7 +1,7 @@
 const BaseModel = require('./BaseModel');
 module.exports = class Favorite extends BaseModel {
     get tableName() {
-        return 'cart';
+        return 'favorites';
     }
 
     static createRules = {
