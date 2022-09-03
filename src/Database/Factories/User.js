@@ -5,22 +5,23 @@ const Resize = require("../../Libs/Resize");
 
 const factory = {
     generate: () => {
-        const name=faker.name.findName();
+        const name=faker.name.fullName();
+        const email=faker.internet.exampleEmail();
         let row={};
         row.type='User'
-        row.name=faker.name.findName();
-        row.email=faker.internet.exampleEmail();
-        row.mobile=faker.phone.phoneNumber();
-        row.password=bcrypt.hashSync('blog@12345', process.env.HASH_SALT);
-        row.token=bcrypt.hashSync(name, process.env.HASH_SALT)+bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT);
+        row.name=name;
+        row.email=email;
+        row.mobile=faker.phone.number();
+        row.password=bcrypt.hashSync(process.env.USER_PASSWORD, process.env.HASH_SALT);
+        row.token=bcrypt.hashSync(email, process.env.HASH_SALT)+bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT);
         row.is_active=1;
         ///////// image field
         const Resize = require("../../Libs/Resize");
-        const image = new Resize({large: '400x300', small: '200x150'});
-        let fileName =  image.save('public/assets/imgs/samples/users/'+getRandomInteger(1,10)+'.png');
-        row.image = fileName;
+        const img = new Resize({large: '400x300', small: '200x150'});
+        row.image = img.save('public/assets/imgs/samples/users/'+getRandomInteger(1,10)+'.png');
         //////////////
         row.is_confirmed=1;
+        return row;
     }
 }
 module.exports = factory;

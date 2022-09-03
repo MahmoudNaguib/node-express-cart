@@ -31,4 +31,13 @@ app.set('views', './src/views');
 
 require('./src/routes')(app);
 
+app.post('/api/test',(req,res)=>{
+    let data=req.body;
+    return res.send({data:req.body});
+    return res.send({message: 'test message',data:data});
+});
+app.get('/api/test',(req,res)=>{
+    return res.send({message: 'test message',data:"data is here"});
+});
+
 module.exports = app;

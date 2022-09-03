@@ -8,6 +8,7 @@ $ git clone https://github.com/MahmoudNaguib/node-express-cart
 $ cd node-express-cart
 $ cp .env.example .env  // Update Database settings and Email Settings 
 $ npm install --save --force
+
 ```
 
 ## Running the app
@@ -26,17 +27,12 @@ $ knex seed:run
 $ knex seed:run --specific={{seederFileName}}
 ```
 
-## Admin User
+## Admin Default User
 ```bash
 Email: admin@demo.com
 Password: demo@12345
 ```
 
-## Guest User
-```bash
-Email: user1@demo.com
-Password: demo@12345
-```
 
 ## Files and Folders access
 ```bash

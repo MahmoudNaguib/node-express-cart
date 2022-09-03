@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "test":"jest --verbose --detectOpenHandles --runInBand --forceExit"
+    "test":"jest --verbose --runInBand --forceExit "
   },
   "author": "",
   "license": "ISC",
