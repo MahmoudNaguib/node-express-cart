@@ -17,7 +17,7 @@ module.exports = {
         if (!await bcrypt.compare(req.body.password, row.toJSON().password)) {
             return res.status(403).send({message: 'Invalid password'});
         }
-        return res.send({data: new Resource().resource(row.toJSON(), row.toJSON().token)})
+        return res.send({message: 'Login successfully',data: new Resource().resource(row.toJSON(), row.toJSON().token)})
     },
 
     register: async (req, res) => {

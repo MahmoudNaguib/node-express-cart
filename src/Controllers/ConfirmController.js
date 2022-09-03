@@ -1,7 +1,6 @@
 const Model = require('../Models/User');
 module.exports = {
     confirm: async (req, res) => {
-        //req.params.token
         let row = await Model.findOne({confirm_token: req.params.token}, {require: false});
         if (row) {
             try {
