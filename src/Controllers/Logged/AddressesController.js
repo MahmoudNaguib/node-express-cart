@@ -2,11 +2,6 @@ const Model = require('../../Models/Address');
 const Resource = require('../../Resources/AddressResource');
 const CountryModel = require("../../Models/Country");
 module.exports = {
-    pairs: async (req, res) => {
-        let rows = await Model.findAll({user_id: req.user.id});
-        return res.send(new Resource().pluck(rows, 'id', 'title'));
-    },
-
     index: async (req, res) => {
         let rows = await Model.forge()
             .own(req)
@@ -56,7 +51,8 @@ module.exports = {
             req.body.user_id = req.user.id;
             let row = await Model.update(req.body, {id: req.params.id,user_id: req.user.id, require: false});
             if (row) {
-                return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
+                return res.status(200)
+                    .send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
             }
         } catch (err) {
             return res.send(err);
@@ -71,5 +67,10 @@ module.exports = {
         if(row.destroy()){
             return res.status(200).send({message: 'Deleted successfully'});
         }
+    },
+
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({user_id: req.user.id});
+        return res.send(new Resource().pluck(rows, 'id', 'title'));
     },
 }

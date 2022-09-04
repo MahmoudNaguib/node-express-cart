@@ -1,7 +1,7 @@
 require('dotenv').config();
 const factory = require('../Factories/Post');
 exports.seed = async function (knex) {
-    if (process.env.APP_ENV != 'production') {
+    if(process.env.APP_ENV=='development'){
         // Deletes ALL existing entries
         await knex('posts').del();
         await knex.raw('ALTER TABLE `posts` AUTO_INCREMENT = 1');

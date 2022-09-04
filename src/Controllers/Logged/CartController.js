@@ -61,7 +61,8 @@ module.exports = {
             req.body.user_id = req.user.id;
             let row = await Model.update(req.body, {id: req.params.id, require: false});
             if (row) {
-                return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
+                return res.status(200)
+                    .send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
             }
         } catch (err) {
             return res.send(err);

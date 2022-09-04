@@ -2,7 +2,7 @@ require('dotenv').config();
 const factory = require('../Factories/Address');
 const {getRandomInteger} = require("../../Helpers/Helpers");
 exports.seed = async function (knex) {
-    if (process.env.APP_ENV != 'production') {
+    if(process.env.APP_ENV=='development'){
         // Deletes ALL existing entries
         await knex('addresses').del();
         await knex.raw('ALTER TABLE `addresses` AUTO_INCREMENT = 1');

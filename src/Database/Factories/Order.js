@@ -11,6 +11,7 @@ const factory = {
         }
         let address = await knex('addresses').where({user_id: user.id}).orderByRaw('RAND ()').first();
         let cart = await createCart(user.id);
+        await knex('cart').insert(cart);
         if (cart && address) {
             let statuses = getOrderStatuses();
             row = await createOrder(user.id, cart, {

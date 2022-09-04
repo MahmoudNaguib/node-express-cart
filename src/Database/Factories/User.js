@@ -11,8 +11,8 @@ const factory = {
         row.type='User'
         row.name=name;
         row.email=email;
-        row.mobile=faker.phone.number();
-        row.password=bcrypt.hashSync(process.env.USER_PASSWORD, process.env.HASH_SALT);
+        row.mobile="012"+getRandomInteger(10000000,99999999);
+        row.password=bcrypt.hashSync(process.env.DEFAULT_PASSWORD, process.env.HASH_SALT);
         row.token=bcrypt.hashSync(email, process.env.HASH_SALT)+bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT);
         row.is_active=1;
         ///////// image field

@@ -49,7 +49,12 @@ module.exports = {
         try {
             let row = await Model.create(orderData);
             if (row) {
-                return res.status(201).send({message: 'Created successfully', data: new Resource().resource(row.toJSON())});
+                /**********Delete cart records************/
+                let deleteCart=await CartModel.forge().where('user_id',req.user.id).destroy();
+                /**************************/
+                if(deleteCart){
+                    return res.status(201).send({message: 'Created successfully', data: new Resource().resource(row.toJSON())});
+                }
             }
         } catch (err) {
             return res.send(err);

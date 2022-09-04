@@ -3,7 +3,7 @@ const factory = require('../Factories/Order');
 const {getRandomInteger} = require('../../Helpers/Helpers');
 const {createOrder,createCart} = require('../../Helpers/Shopping');
 exports.seed = async function (knex) {
-    if(process.env.APP_ENV!='production') {
+    if(process.env.APP_ENV=='development'){
         // Deletes ALL existing entries
         await knex('orders').del();
         await knex.raw('ALTER TABLE `orders` AUTO_INCREMENT = 1');

@@ -1,11 +1,6 @@
 const Model =  require('../Models/Category');
 const Resource = require('../Resources/CategoryResource');
 module.exports = {
-    pairs: async (req, res) => {
-        let rows = await Model.findAll({is_active:1});
-        return res.send(new Resource().pluck(rows, 'id', 'title'));
-    },
-
     index: async (req, res) => {
         let rows = await Model.forge()
             .where({is_active:1})
@@ -23,5 +18,10 @@ module.exports = {
             return res.status(404).send({message: 'Record not found'});
         }
         return res.send({data: new Resource().resource(row.toJSON())});
+    },
+
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({is_active:1});
+        return res.send(new Resource().pluck(rows, 'id', 'title'));
     },
 }

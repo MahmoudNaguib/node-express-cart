@@ -2,22 +2,23 @@ const request = require("supertest");
 const app = require("../../../app");
 
 const knex = require("../../Database/knex");
-const factory = require("../../Database/Factories/Country");
+const factory = require("../../Database/Factories/Category");
 
 let createRecord = async () => {
-    let created = await knex('countries').insert(await factory.generate());
+    let created = await knex('categories').insert(await factory.generate());
     if (created) {
-        return await knex('countries').where('id', created[0]).first();
+        return await knex('categories').where('id', created[0]).first();
     }
 }
 let deleteRecord = async (record) => {
-    return await knex('countries').where('id', record.id).del();
+    return await knex('categories').where('id', record.id).del();
 }
 
-describe("Countries", () => {
+describe("Categories", () => {
+
     test("index", async () => {
         let record = await createRecord();
-        const res = await request(app).get("/api/countries");
+        const res = await request(app).get("/api/categories");
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('data');
         expect(res.body.data.length).toBeGreaterThan(0);
@@ -26,7 +27,7 @@ describe("Countries", () => {
 
     test("show", async () => {
         let record = await createRecord();
-        const res = await request(app).get("/api/countries/" + record.id);
+        const res = await request(app).get("/api/categories/" + record.id);
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('data');
         deleteRecord(record);
@@ -34,7 +35,7 @@ describe("Countries", () => {
 
     test("pairs", async () => {
         let record = await createRecord();
-        const res = await request(app).get("/api/countries/pairs");
+        const res = await request(app).get("/api/categories/pairs");
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('data');
         deleteRecord(record);

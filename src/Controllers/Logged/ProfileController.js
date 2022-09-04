@@ -17,7 +17,7 @@ module.exports={
             /****** Update token ***********/
             let row = await Model.update(req.body, {id: req.user.id, require: false});
             if (row) {
-                return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON(),req.body.token)});
+                return res.status(200).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON(),req.body.token)});
             }
         } catch (err) {
             return res.send(err);
@@ -36,7 +36,7 @@ module.exports={
             }
             let row = await Model.update(data, {id: req.user.id, require: false});
             if (row) {
-                return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON(),req.body.token)});
+                return res.status(200).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON(),req.body.token)});
             }
         } catch (err) {
             return res.send(err);
@@ -47,7 +47,7 @@ module.exports={
         try {
             let row = await Model.update({image:req.body.image}, {id: req.user.id, require: false});
             if (row) {
-                return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
+                return res.status(200).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
             }
         } catch (err) {
             return res.send(err);

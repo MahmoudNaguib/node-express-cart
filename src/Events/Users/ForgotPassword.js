@@ -1,12 +1,14 @@
 require('dotenv').config();
 const NodeMailerWrapper = require("../../Libs/NodeMailerWrapper");
-const Model = require('../../Models/User');
 const bcrypt = require("bcrypt");
 const {getRandomString} = require('../../Helpers/Helpers');
+const knex=require('../../Database/knex');
 module.exports = {
     run: async (row) => {
         if ((process.env.APP_ENV == 'production')) {
+            console.log('ForgotPassword event');
             let password = getRandomString(8);
+            //let password = 'demo@12345';
             let parameters = {
                 title: 'Forgot password',
                 row: row,
@@ -25,7 +27,9 @@ module.exports = {
                         password: bcrypt.hashSync(password, process.env.HASH_SALT),
                         token: bcrypt.hashSync(row.email, process.env.HASH_SALT) + bcrypt.hashSync(Math.random().toString(), process.env.HASH_SALT)
                     };
-                    await Model.update(data, {id: row.id, require: false});
+                    await knex('users')
+                        .where('id', row.id)
+                        .update(data);
                 } catch (err) {
                     console.log(err);
                 }

@@ -3,7 +3,7 @@ const factory = require('../Factories/Favorite');
 const {getRandomInteger} = require('../../Helpers/Helpers');
 const {createFavorites} = require('../../Helpers/Shopping');
 exports.seed = async function (knex) {
-    if(process.env.APP_ENV!='production') {
+    if(process.env.APP_ENV=='development'){
         // Deletes ALL existing entries
         await knex('favorites').del();
         await knex.raw('ALTER TABLE `favorites` AUTO_INCREMENT = 1');

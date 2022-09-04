@@ -4,7 +4,7 @@ const {getRandomInteger} = require('../../Helpers/Helpers');
 const Resize = require("../../Libs/Resize");
 const factory = require("../Factories/User");
 exports.seed = async function (knex) {
-    if(process.env.APP_ENV!='production'){
+    if(process.env.APP_ENV=='development'){
         let rows = [];
         for (let i = 0; i < 5; i++) {
             rows.push(factory.generate());

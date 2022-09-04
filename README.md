@@ -27,12 +27,30 @@ $ knex seed:run
 $ knex seed:run --specific={{seederFileName}}
 ```
 
+
+## Running the unit testing
+
+```bash
+# Run all tests
+$ npm run test
+
+# Run test specific file
+$ npm run test -f "<fileName>"
+```
+
+
+
 ## Admin Default User
 ```bash
 Email: admin@demo.com
 Password: demo@12345
 ```
 
+## Guest Default User
+```bash
+Email: user1@demo.com
+Password: demo@12345
+```
 
 ## Files and Folders access
 ```bash

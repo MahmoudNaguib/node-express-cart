@@ -2,11 +2,6 @@ const Model = require('../../Models/Favorite');
 const Resource = require('../../Resources/FavoriteResource');
 const ProductModel = require("../../Models/Product");
 module.exports = {
-    pairs: async (req, res) => {
-        let rows = await Model.findAll({user_id: req.user.id});
-        return res.send(new Resource().pluck(rows, 'id', 'product_id'));
-    },
-
     index: async (req, res) => {
         let rows = await Model.forge()
             .where({user_id: req.user.id})
@@ -59,5 +54,10 @@ module.exports = {
         if (row.destroy()) {
             return res.status(200).send({message: 'Deleted successfully'});
         }
+    },
+
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({user_id: req.user.id});
+        return res.send(new Resource().pluck(rows, 'id', 'product_id'));
     },
 }

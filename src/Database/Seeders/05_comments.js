@@ -1,7 +1,7 @@
 require('dotenv').config();
 const factory = require('../Factories/Comment');
 exports.seed = async function (knex) {
-    if(process.env.APP_ENV!='production') {
+    if(process.env.APP_ENV=='development'){
         // Deletes ALL existing entries
         await knex('comments').del();
         await knex.raw('ALTER TABLE `comments` AUTO_INCREMENT = 1');
