@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Controller = require('../../../Controllers/Admin/AdminProductsController');
+const Controller = require('../../../Controllers/Api/Admin/AdminProductsController');
 const Model = require('../../../Models/Product');
 const Validate = require('../../../Middlewares/Validate');
 const ValidateImageAndResize = require("../../../Middlewares/ValidateImageAndResize");

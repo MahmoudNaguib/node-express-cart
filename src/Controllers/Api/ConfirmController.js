@@ -1,4 +1,4 @@
-const Model = require('../Models/User');
+const Model = require('../../Models/User');
 module.exports = {
     confirm: async (req, res) => {
         let row = await Model.findOne({confirm_token: req.params.token}, {require: false});

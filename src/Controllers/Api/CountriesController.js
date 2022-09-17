@@ -1,5 +1,5 @@
-const Model = require('../Models/Country');
-const Resource = require('../Resources/CountryResource');
+const Model = require('../../Models/Country');
+const Resource = require('../../Resources/CountryResource');
 module.exports = {
     index: async (req, res) => {
         let rows = await Model.forge().fetchPage({page: (req.query.page) ? req.query.page : 1, pageSize: process.env.PAGE_LIMIT});

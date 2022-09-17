@@ -1,6 +1,6 @@
-const Model = require('../../Models/Cart');
-const Resource = require('../../Resources/CartResource');
-const ProductModel = require("../../Models/Product");
+const Model = require('../../../Models/Favorite');
+const Resource = require('../../../Resources/FavoriteResource');
+const ProductModel = require("../../../Models/Product");
 module.exports = {
     index: async (req, res) => {
         let rows = await Model.forge()
@@ -29,17 +29,13 @@ module.exports = {
             return res.status(404).send({message: 'Product not found'});
         }
         /*****************************************/
-        let record = await Model.findOne({product_id: req.body.product_id}, {require: false});
-        /***********Update record if product already exist ***********/
-        if(record){
-            let newQuantity=record.toJSON().quantity+parseInt(req.body.quantity);
-            let row = await Model.update({quantity:newQuantity}, {id:record.toJSON().id, require: false});
-            if (row) {
-                return res.status(201).send({message: 'Created successfully', data: new Resource().resource(row.toJSON())});
-            }
-        }
-        /*********************************************/
         try {
+            /********************* Check if product exist first*************************/
+            let record = await Model.findOne({product_id: req.body.product_id, user_id:req.user.id}, {require: false});
+            if(record){
+                return res.status(201).send({message: 'Created successfully', data: new Resource().resource(record.toJSON())});
+            }
+            /**********************************/
             req.body.user_id = req.user.id;
             let row = await Model.create(req.body);
             if (row) {
@@ -50,32 +46,18 @@ module.exports = {
         }
     },
 
-    update: async (req, res) => {
-        /***********Check product is existed ************/
-        let product = await ProductModel.findOne({id: req.body.product_id}, {require: false});
-        if (!product) {
-            return res.status(404).send({message: 'Product not found'});
-        }
-        /*****************************************/
-        try {
-            req.body.user_id = req.user.id;
-            let row = await Model.update(req.body, {id: req.params.id, require: false});
-            if (row) {
-                return res.status(200)
-                    .send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
-            }
-        } catch (err) {
-            return res.send(err);
-        }
-    },
-
     delete: async (req, res) => {
-        let row = await Model.findOne({id: req.params.id,user_id: req.user.id}, {require: false});
+        let row = await Model.findOne({id: req.params.id, user_id: req.user.id}, {require: false});
         if (!row) {
             return res.status(404).send({message: 'Record not found'});
         }
-        if(row.destroy()){
+        if (row.destroy()) {
             return res.status(200).send({message: 'Deleted successfully'});
         }
+    },
+
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({user_id: req.user.id});
+        return res.send(new Resource().pluck(rows, 'id', 'product_id'));
     },
 }

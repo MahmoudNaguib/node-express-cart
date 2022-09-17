@@ -1,5 +1,5 @@
-const Model = require('../../Models/User');
-const Resource = require('../../Resources/UserResource');
+const Model = require('../../../Models/User');
+const Resource = require('../../../Resources/UserResource');
 module.exports = {
     index: async (req, res) => {
         let rows = await Model.forge()

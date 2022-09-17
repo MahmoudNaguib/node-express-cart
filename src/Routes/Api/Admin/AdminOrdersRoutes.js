@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const Controller = require('../../../Controllers/Admin/AdminOrdersController');
+const Controller = require('../../../Controllers/Api/Admin/AdminOrdersController');
 const Model = require('../../../Models/Order');
 const Validate = require('../../../Middlewares/Validate');
 

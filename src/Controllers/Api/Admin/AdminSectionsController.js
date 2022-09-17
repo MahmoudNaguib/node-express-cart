@@ -1,10 +1,13 @@
-const Model = require('../../Models/Order');
-const Resource = require('../../Resources/OrderResource');
+const Model = require('../../../Models/Section');
+const Resource = require('../../../Resources/SectionResource');
 module.exports = {
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({is_active:1});
+        return res.send(new Resource().pluck(rows, 'id', 'title'));
+    },
+
     index: async (req, res) => {
         let rows = await Model.forge()
-            .filter(req.query)
-            .orderBy('id', 'DESC')
             .fetchPage({
                 withRelated: ['user'],
                 page:(req.query.page) ? req.query.page : 1,
@@ -21,10 +24,23 @@ module.exports = {
         return res.send({data: new Resource().resource(row.toJSON())});
     },
 
-    updateStatus: async (req, res) => {
+    store: async (req, res) => {
         try {
             req.body.user_id = req.user.id;
-            let row = await Model.update({status:req.body.status}, {id: req.params.id, require: false});
+            let row = await Model.create(req.body);
+            if (row) {
+                return res.status(201).send({message: 'Created successfully', data: new Resource().resource(row.toJSON())});
+            }
+        }
+        catch (err) {
+            return res.send(err);
+        }
+    },
+
+    update: async (req, res) => {
+        try {
+            req.body.user_id = req.user.id;
+            let row = await Model.update(req.body, {id: req.params.id, require: false});
             if (row) {
                 return res.status(201).send({message: 'Updated successfully', data: new Resource().resource(row.toJSON())});
             }

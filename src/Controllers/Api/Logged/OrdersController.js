@@ -1,8 +1,8 @@
-const Model = require('../../Models/Order');
-const Resource = require('../../Resources/OrderResource');
-const CartModel = require('../../Models/Cart');
-const AddressModel = require("../../Models/Address");
-const {createOrder} = require("../../Helpers/Shopping");
+const Model = require('../../../Models/Order');
+const Resource = require('../../../Resources/OrderResource');
+const CartModel = require('../../../Models/Cart');
+const AddressModel = require("../../../Models/Address");
+const {createOrder} = require("../../../Helpers/Shopping");
 module.exports = {
     index: async (req, res) => {
         let rows = await Model.forge()

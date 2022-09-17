@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Controller = require('../../../Controllers/Logged/ProfileController');
+const Controller = require('../../../Controllers/Api/Logged/ProfileController');
 const Model = require('../../../Models/User');
 const Validate = require('../../../Middlewares/Validate');
 const ValidateImageAndResize = require("../../../Middlewares/ValidateImageAndResize");

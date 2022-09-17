@@ -1,5 +1,5 @@
-const Model = require('../Models/Product');
-const Resource = require('../Resources/ProductResource');
+const Model = require('../../Models/Product');
+const Resource = require('../../Resources/ProductResource');
 
 module.exports={
     index: async (req, res) => {

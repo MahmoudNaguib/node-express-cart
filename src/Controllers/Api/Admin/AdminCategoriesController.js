@@ -1,12 +1,15 @@
-const Model = require('../../Models/Product');
-const Resource = require('../../Resources/ProductResource');
+const Model = require('../../../Models/Category');
+const Resource = require('../../../Resources/CategoryResource');
+module.exports = {
+    pairs: async (req, res) => {
+        let rows = await Model.findAll({is_active:1});
+        return res.send(new Resource().pluck(rows, 'id', 'title'));
+    },
 
-module.exports={
     index: async (req, res) => {
         let rows = await Model.forge()
-            .filter(req.query)
             .fetchPage({
-                withRelated: ['user','category'],
+                withRelated: ['user'],
                 page:(req.query.page) ? req.query.page : 1,
                 pageSize: process.env.PAGE_LIMIT
             });
@@ -14,7 +17,7 @@ module.exports={
     },
 
     show: async (req, res) => {
-        let row = await Model.findOne({id: req.params.id}, {withRelated: ['user','category'],require: false});
+        let row = await Model.findOne({id: req.params.id}, {withRelated: ['user'],require: false});
         if (!row) {
             return res.status(404).send({message: 'Record not found'});
         }
@@ -56,5 +59,4 @@ module.exports={
             return res.send(err);
         }
     },
-
 }

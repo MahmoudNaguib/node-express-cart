@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Controller = require('../../../Controllers/Logged/FavoritesController');
+const Controller = require('../../../Controllers/Api/Logged/FavoritesController');
 const Model = require('../../../Models/Favorite');
 const Validate = require('../../../Middlewares/Validate');
 

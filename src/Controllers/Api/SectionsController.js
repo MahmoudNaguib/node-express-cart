@@ -1,14 +1,8 @@
-const Model =  require('../Models/Category');
-const Resource = require('../Resources/CategoryResource');
+const Model =  require('../../Models/Section');
+const Resource = require('../../Resources/SectionResource');
 module.exports = {
     index: async (req, res) => {
-        let rows = await Model.forge()
-            .where({is_active:1})
-            .fetchPage({
-                withRelated: ['user'],
-                page:(req.query.page) ? req.query.page : 1,
-                pageSize: process.env.PAGE_LIMIT
-            });
+        let rows = await Model.forge().where({is_active:1}).fetchPage({withRelated: ['user'],page:(req.query.page) ? req.query.page : 1,pageSize: process.env.PAGE_LIMIT});
         return res.send(await new Resource().collection(rows));
     },
 

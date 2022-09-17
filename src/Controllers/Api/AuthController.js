@@ -1,7 +1,7 @@
-const Model = require('../Models/User');
-const Resource = require('../Resources/UserResource');
+const Model = require('../../Models/User');
+const Resource = require('../../Resources/UserResource');
 const bcrypt = require('bcrypt');
-const ForgotPassword = require("../Events/Users/ForgotPassword");
+const ForgotPassword = require("../../Events/Users/ForgotPassword");
 module.exports = {
     login: async (req, res) => {
         let row = await Model.findOne({email: req.body.email}, {require: false});
