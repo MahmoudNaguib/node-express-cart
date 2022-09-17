@@ -3,8 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.json({limit:"30mb",extended:true}));
+app.use(express.urlencoded({limit:"30mb",extended: true}));
 
 const multer = require('multer');
 const upload = multer();
@@ -30,14 +30,5 @@ app.set('views', './src/views');
 /*****************************/
 
 require('./src/routes')(app);
-
-app.post('/api/test',(req,res)=>{
-    let data=req.body;
-    return res.send({data:req.body});
-    return res.send({message: 'test message',data:data});
-});
-app.get('/api/test',(req,res)=>{
-    return res.send({message: 'test message',data:"data is here"});
-});
 
 module.exports = app;
