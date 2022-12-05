@@ -19,7 +19,8 @@ module.exports = {
     seeds: {
       directory:__dirname+'/src/Database/Seeders',
     },
-    debug:false,
+    debug:true,
+    asyncStackTraces: true
   },
   development: {
     client: 'mysql',
